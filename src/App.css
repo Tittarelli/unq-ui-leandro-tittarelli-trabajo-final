@@ -15,8 +15,6 @@ main {
 
 footer {
   width: 100%;
-  position: absolute;
-  bottom: 0;
   color: rgb(128, 194, 255);
   background: rgb(193, 245, 255);
 }
@@ -47,4 +45,12 @@ footer a:hover {
   font-size: 100px;
   text-align: center;
   text-shadow: 2px 2px 0px black;
+}
+
+.game {
+  height: 100%;
+  padding: 20px;
+  gap: 20px;
+  display: flex;
+  justify-content: space-around
 }
