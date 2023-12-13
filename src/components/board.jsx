@@ -1,10 +1,18 @@
 import React from 'react';
 import { Cell } from './Cell';
-import { UnoccupiedCell } from '../cells';
 
-export const Board = ({ board }) => {
-    const handleCellClick = (rowIndex, columnIndex) => {
-        console.log(`Cell clicked at ${rowIndex}-${columnIndex}`);
+export const Board = ({ board, setBoard, isSettingUp, shipAwaitingToBePlaced, ships, setShips }) => {
+
+    const handleCellClick = (cell) => {
+        const newBoard = board.map(row => [...row]);
+        if (isSettingUp && shipAwaitingToBePlaced) {
+            const newShips = [...ships]
+            cell.placeAndUpdate(shipAwaitingToBePlaced, newBoard, newShips)
+            setShips(newShips)
+        } else {
+            cell.transformBoardBecauseOfClick(newBoard)
+        }
+        setBoard(newBoard)
     };
 
     return (
@@ -14,8 +22,8 @@ export const Board = ({ board }) => {
                     {row.map((cell, columnIndex) => (
                         <Cell
                             key={`${rowIndex}-${columnIndex}`}
-                            cell={new UnoccupiedCell(rowIndex, columnIndex)}
-                            onClick={() => handleCellClick(rowIndex, columnIndex)}
+                            cell={cell.updateWith(rowIndex, columnIndex)}
+                            onClick={handleCellClick}
                         />
                     ))}
                 </div>
