@@ -35,7 +35,7 @@ export const ShipSelector = ({ ships, onPlaceShip, onReady }) => {
             <button className="place-ship" onClick={handlePlaceShip}>
                 Place Ship
             </button>
-            <button className="ready-button" onClick={onReady}>
+            <button className="ready-button" onClick={onReady} disabled={!ships.every((ship) => ship.isAlreadyAllocated())}>
                 Ready
             </button>
         </div>

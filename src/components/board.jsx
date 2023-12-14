@@ -4,11 +4,10 @@ import { Cell } from './Cell';
 export const Board = ({ board, setBoard, isSettingUp, shipAwaitingToBePlaced, ships, setShips }) => {
 
     const handleCellClick = (cell) => {
-        const newBoard = board.map(row => [...row]);
+        const newBoard = board.map(row => row.map(cell => ({ ...cell })));
         if (isSettingUp && shipAwaitingToBePlaced) {
-            const newShips = [...ships]
-            cell.placeAndUpdate(shipAwaitingToBePlaced, newBoard, newShips)
-            setShips(newShips)
+            cell.placeAndUpdate(shipAwaitingToBePlaced, newBoard)
+            setShips(ships)
         } else {
             cell.transformBoardBecauseOfClick(newBoard)
         }
@@ -22,7 +21,7 @@ export const Board = ({ board, setBoard, isSettingUp, shipAwaitingToBePlaced, sh
                     {row.map((cell, columnIndex) => (
                         <Cell
                             key={`${rowIndex}-${columnIndex}`}
-                            cell={cell.updateWith(rowIndex, columnIndex)}
+                            cell={cell}
                             onClick={handleCellClick}
                         />
                     ))}

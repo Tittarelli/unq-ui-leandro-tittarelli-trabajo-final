@@ -1,33 +1,55 @@
-class ShipBehavior {
+export class Ship {
     constructor(description, size) {
         this.description = description
         this.size = size
+        this.cells = []
     }
 
     longDescription = () => {
         return `${this.description} (${this.size} casillas)`
     }
 
-    setOrientation = (aString) => {
-        "aString should be either horizontal or vertical -ltittarelli"
-        this.orientation = aString
+    setOrientation = (aShipOrientation) => {
+        this.orientation = aShipOrientation
+    }
+
+    canBePlacedStartingAtOn = (aCell, aBoard) => {
+        return this.orientation.isValidStartingPointOn(aCell, aBoard, this)
+    }
+
+    setCells = (aCellsList) => {
+        this.cells = aCellsList.slice(aCellsList.length - this.size, aCellsList.length);
+        return true;
+    }
+
+    isAlreadyAllocated = () => {
+        return this.cells.length > 0;
     }
 
 }
 
-export class UnallocatedShip extends ShipBehavior {
+export class ShipOrientation {
+    constructor(description) {
+        this.description = description
+    }
 
-    isAlreadyAllocated = () => {
-        return false
+    static of(description) {
+        if (description === 'horizontal') {
+            return new HorizontalShipOrientation();
+        } else {
+            return new VerticalShipOrientation();
+        }
     }
 }
-export class Ship extends ShipBehavior {
-    constructor(description, size, cells) {
-        super(description, size)
-        this.cells = cells
-    }
 
-    isAlreadyAllocated = () => {
-        return true
+class HorizontalShipOrientation extends ShipOrientation {
+    isValidStartingPointOn = (aCell, aBoard, aShip) => {
+        return aCell.canPlaceToLeftOn(aShip, aBoard)
+    }
+}
+
+class VerticalShipOrientation extends ShipOrientation {
+    isValidStartingPointOn = (aCell, aBoard, aShip) => {
+        return aCell.canPlaceToBottomOn(aShip, aBoard)
     }
 }

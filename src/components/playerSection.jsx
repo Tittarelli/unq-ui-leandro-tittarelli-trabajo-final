@@ -3,23 +3,34 @@ import './playerSection.css';
 import { Board } from './board';
 import { UnoccupiedCell } from '../cells';
 import { ShipSelector } from './shipSelector';
-import { UnallocatedShip } from '../ships';
+import { ShipOrientation, Ship } from '../ships';
 
 export const PlayerSection = ({ player }) => {
-    const boardSize = 10
-    const initialBoard = Array(boardSize).fill(Array(boardSize).fill(new UnoccupiedCell()));
+    const createBoard = () => {
+        const boardSize = 10
+        const matrix = [];
+        for (let i = 0; i < boardSize; i++) {
+            const row = [];
+            for (let j = 0; j < boardSize; j++) {
+                row.push(new UnoccupiedCell(i, j));
+            }
+            matrix.push(row);
+        }
+        return matrix;
+    }
+    const initialBoard = createBoard()
     const [isSettingUp, setIsSettingUp] = useState(true);
     const [shipAwaitingToBePlaced, setShipAwaitingToBePlaced] = useState(null);
     const [board, setBoard] = useState(initialBoard);
     const [ships, setShips] = useState([
-        new UnallocatedShip('Portaaviones', 5),
-        new UnallocatedShip('Crucero', 4),
-        new UnallocatedShip('Submarino', 3),
-        new UnallocatedShip('Lancha', 2)
+        new Ship('Portaaviones', 5),
+        new Ship('Crucero', 4),
+        new Ship('Submarino', 3),
+        new Ship('Lancha', 2)
     ])
 
-    const handlePlaceShip = (ship, selectedOrientation) => {
-        ship.setOrientation(selectedOrientation)
+    const handlePlaceShip = (ship, orientationDescription) => {
+        ship.setOrientation(ShipOrientation.of(orientationDescription))
         setShipAwaitingToBePlaced(ship)
     };
 
