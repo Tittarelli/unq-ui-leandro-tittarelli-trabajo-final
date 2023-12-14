@@ -1,0 +1,98 @@
+.playerSection {
+    width: 100%;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.playerSection h2 {
+    text-align: center;
+}
+
+.board {
+    display: grid;
+    gap: 2px;
+}
+
+.row {
+    display: flex;
+    gap: 2px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+
+}
+
+.unoccupied-cell {
+    width: 40px;
+    height: 40px;
+    border: solid 1px;
+    cursor: crosshair;
+    background-color: #ffffff;
+}
+
+.occupied-cell {
+    width: 40px;
+    height: 40px;
+    border: solid 1px;
+    pointer-events: none;
+    background-color: #e74c3c;
+}
+
+.unoccupied-cell:active {
+    background-color: #d1d1d1;
+}
+
+.ship-selector {
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    pointer-events: none;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.ready-button {
+    background-color: #3498db;
+    margin-top: 15px;
+}
+
+.ready-button:hover {
+    background-color: #2980b9;
+}
